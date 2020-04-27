@@ -1,5 +1,6 @@
 {
     "name": "phobo/test-publish",
+    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "psr-4": {
