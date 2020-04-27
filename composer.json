@@ -1,0 +1,9 @@
+{
+    "name": "phobo/test-publish",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Phobo\\TestPublish\\": "src"
+        }
+    },
+}
