@@ -9,12 +9,12 @@ class TestPublishServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/test.php' => config_path('test.php'),
+            __DIR__.'/../config/translatable.php' => config_path('translatable.php'),
         ], 'config');
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/test.php', 'test');
+        $this->mergeConfigFrom(__DIR__.'/../config/translatable.php', 'translatable');
     }
 }
