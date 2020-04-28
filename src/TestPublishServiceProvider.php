@@ -16,5 +16,13 @@ class TestPublishServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/translatable.php', 'translatable');
+
+	$this->commands([
+            Console\ModuleMake::class,
+            Console\ControllerMake::class,
+            Console\RepositoryMake::class,
+            Console\ModelMake::class,
+            Console\ResourceMake::class
+        ]);
     }
 }
