@@ -11,6 +11,8 @@ class TestPublishServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/translatable.php' => config_path('translatable.php'),
         ], 'config');
+
+        $this->publishes([__DIR__.'/../frontend' => base_path()], 'frontend');
     }
 
     public function register()

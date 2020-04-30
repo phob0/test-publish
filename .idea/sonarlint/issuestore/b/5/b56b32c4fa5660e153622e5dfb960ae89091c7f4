@@ -1,0 +1,7 @@
+
+X	php:S3358("DExtract this nested ternary operation into an independent statement.(öÑ“q
+e	php:S1192"KDefine a constant instead of duplicating this literal "expression" 3 times.(¢õÉ¶ýÿÿÿÿ
+b	php:S1192"HDefine a constant instead of duplicating this literal "filters" 4 times.(ä±­Ñýÿÿÿÿ
+b	php:S1192"HDefine a constant instead of duplicating this literal "sort_by" 4 times.(ƒ•Ì‰ýÿÿÿÿ
+_	php:S1192"JDefine a constant instead of duplicating this literal "sortOrder" 3 times.(¦¶þý
+C	php:S1481<")Remove this unused "$key" local variable.(‡Úà¡ùÿÿÿÿ
