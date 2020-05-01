@@ -12,7 +12,7 @@ class TestPublishServiceProvider extends ServiceProvider
             __DIR__.'/../config/translatable.php' => config_path('translatable.php'),
         ], 'config');
 
-        $this->publishes([__DIR__.'/../frontend' => base_path()], 'frontend');
+        $this->publishes([__DIR__.'/../frontend' => base_path('frontend')], 'frontend');
     }
 
     public function register()
