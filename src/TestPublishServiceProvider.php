@@ -21,11 +21,6 @@ class TestPublishServiceProvider extends ServiceProvider
 
     public function register()
     {
-        // register the current package
-        $this->app->bind('base', function ($app) {
-            return new Base($app);
-        });
-
         if (class_exists('Phobo\TestPublish\TestPublishServiceProvider')) {
             $this->app->register('Phobo\TestPublish\TestPublishServiceProvider');
         }
