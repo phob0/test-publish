@@ -37,7 +37,7 @@ export default {
      * @returns {string}
      */
     formTitle() {
-      return this.form.item.name
+      return this.form.item.name[this.defaultLocale]
     },
 
     editing() {
@@ -58,21 +58,96 @@ export default {
   },
 
   methods: {
+
     getNewItem() {
+      return this.initItem()
+    },
+
+    setNewItemFields() {
       return {
-        id: 0
+        translatables: [],
+        string: [],
+        number: [
+          'id'
+        ],
+        array: [],
+        object: [],
+        boolean: []
       }
     },
 
     getValidationRules() {
-      return {}
+      return this.initRules()
+    },
+
+    /* Generates item based on it`s type */
+    initItem() {
+      let item = {}
+
+      Object.keys(this.setNewItemFields()).map((Key) => {
+        if (Key === 'translatables') {
+          this.setNewItemFields()[Key].map((key) => {
+            // generate translatable items
+            item[key] = Object.fromEntries(this.getLocalesList().map(locale => [locale, '']))
+          }, this)
+        } else {
+          this.setNewItemFields()[Key].map((key) => {
+            // generate items
+            // if array means you don`t want default value from type
+            if (Array.isArray(key)) {
+              item[key[0]] = key[1]
+            } else {
+              item[key] = window[`${Key.charAt(0).toUpperCase() + Key.slice(1)}`]()
+            }
+          }, Key)
+        }
+      }, this)
+
+      return item
+    },
+
+    /* Generates rule based on item type */
+    initRules(setRequiredRules = false) {
+      let rules = {}
+
+      Object.keys(this.setNewItemFields()).map((Key) => {
+        if (Key === 'translatables') {
+          this.setNewItemFields()[Key].map((key) => {
+            // generate translatable rules
+            rules[key] = Object.fromEntries(this.getLocalesList().map(locale => {
+              let rules = [
+                () => !this.remoteErrors[key] || !this.remoteErrors[key][locale] || this.remoteErrors[key][locale][0]
+              ]
+
+              if (locale === this.getDefaultLocale() && setRequiredRules) {
+                rules.unshift(val => !!val || this.errorMessages.required)
+              }
+
+              return [locale, rules]
+            }, [this, key]))
+          }, this)
+        } else {
+          this.setNewItemFields()[Key].map((key) => {
+            // generate rules
+            if (key !== 'id') {
+              rules[key] = []
+              if (setRequiredRules) {
+                rules[key].push(val => !!val || this.errorMessages.required)
+              }
+              rules[key].push(() => !this.remoteErrors[key] || this.remoteErrors[key][0])
+            }
+          }, Key)
+        }
+      }, this)
+
+      return rules
     },
 
     resetForm(overwrite = {}) {
       // ommit undefined items from the overwrite object
 
       this.form.item = Object.assign({},
-        this.getNewItem(),
+        Object.keys(this.getNewItem()).length > 1 ? this.getNewItem() : this.initItem(),
         Object.fromEntries(Object.entries(overwrite).filter(pair => pair[1] !== undefined))
       )
     },

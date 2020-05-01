@@ -8,8 +8,6 @@ import * as rootMutations from './mutations'
 
 import setting from './setting'
 import user from './user'
-import location from './location'
-import medicalCondition from './medical_condition'
 
 Vue.use(Vuex)
 
@@ -22,9 +20,7 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       setting,
-      user,
-      location,
-      medicalCondition
+      user
     },
 
     state: rootState,
@@ -45,16 +41,6 @@ export default function(/* { ssrContext } */) {
 
     module.hot.accept('./user', () => {
       const newModule = require('./user').default
-      Store.hotUpdate({ modules: { user: newModule } })
-    })
-
-    module.hot.accept('./location', () => {
-      const newModule = require('./location').default
-      Store.hotUpdate({ modules: { user: newModule } })
-    })
-
-    module.hot.accept('./medical_condition', () => {
-      const newModule = require('./medical_condition').default
       Store.hotUpdate({ modules: { user: newModule } })
     })
   }
