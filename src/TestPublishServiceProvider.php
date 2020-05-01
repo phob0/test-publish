@@ -26,7 +26,9 @@ class TestPublishServiceProvider extends ServiceProvider
             return new Base($app);
         });
 
-        $this->app->register('Phobo\TestPublish\TestPublishServiceProvider');
+        if (class_exists('Phobo\TestPublish\TestPublishServiceProvider')) {
+            $this->app->register('Phobo\TestPublish\TestPublishServiceProvider');
+        }
 
         $this->mergeConfigFrom(__DIR__.'/../config/translatable.php', 'translatable');
 
