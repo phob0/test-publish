@@ -6,5 +6,12 @@
         "psr-4": {
             "Phobo\\TestPublish\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Phobo\\Broth\\BrothServiceProvider"
+            ]
+        }
     }
 }
